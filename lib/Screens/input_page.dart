@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import './background_card.dart';
-import './results_page.dart';
-import './constants.dart';
+import '../Widgets/background_card.dart';
+import '../Screens/results_page.dart';
+import '../constants.dart';
+import '../brain.dart';
 
 enum Gender {
   male,
@@ -20,6 +21,16 @@ class _InputPageState extends State<InputPage> {
   int heightValue = 170;
   int weightValue = 60;
   int ageValue = 18;
+  String bmiValue;
+  String resultValue;
+  String interpretation;
+
+  calculateBmi(int h, int w) {
+    Brain brain = Brain(height: h, weight: w);
+    bmiValue = brain.calBmi();
+    resultValue = brain.getResult();
+    interpretation = brain.getInterpretation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -281,9 +292,34 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Result();
-              }));
+              if (selectedGender != null) {
+                calculateBmi(heightValue, weightValue);
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Result(resultValue, bmiValue, interpretation);
+                }));
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(
+                          'Error',
+                          style: TextStyle(
+                            fontSize: 22,
+                          ),
+                        ),
+                        content: Text('Select Gender First.'),
+                        backgroundColor: activeCardColor,
+                        actions: <Widget>[
+                          RaisedButton(
+                            color: inactiveCardColor,
+                            child: Text('Ok', style: TextStyle(color: Colors.white),),
+                            onPressed: () => Navigator.pop(context),
+                          )
+                        ],
+                      );
+                    });
+              }
             },
           )
         ],

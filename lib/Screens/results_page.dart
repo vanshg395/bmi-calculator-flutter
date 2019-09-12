@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-import './background_card.dart';
-import './constants.dart';
+import '../Widgets/background_card.dart';
+import '../constants.dart';
 
 class Result extends StatelessWidget {
+  final String resultValue;
+  final String bmiValue;
+  final String interpretation;
+
+  Result(this.resultValue, this.bmiValue, this.interpretation);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,26 +42,29 @@ class Result extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'NORMAL',
+                    resultValue.toUpperCase(),
                     style: TextStyle(
                       color: Color(0xFF24D876),
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
+                      letterSpacing: 10,
                     ),
                   ),
                   Text(
-                    '18.3',
+                    bmiValue,
                     style: TextStyle(
                       fontSize: 100,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
-                  Text(
-                    'Your result is quite low, you should eat more.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 22,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      interpretation,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 22,
+                      ),
                     ),
                   ),
                 ],
