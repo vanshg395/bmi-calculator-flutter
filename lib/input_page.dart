@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import './background_card.dart';
-
-const bottomBackgroundHeight = 100.0;
-const inactiveCardColor = Color(0xFF1D1F32);
-const activeCardColor = Color(0xFF111328);
-const bottomContainerColor = Color(0xFFD83558);
+import './results_page.dart';
+import './constants.dart';
 
 enum Gender {
   male,
@@ -185,6 +182,7 @@ class _InputPageState extends State<InputPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             FloatingActionButton(
+                              heroTag: 'btn1',
                               child: Icon(FontAwesomeIcons.minus),
                               backgroundColor: Color(0xFF1D1F31),
                               foregroundColor: Colors.white,
@@ -194,8 +192,8 @@ class _InputPageState extends State<InputPage> {
                                 });
                               },
                             ),
-                            // SizedBox(width: 30,),
                             FloatingActionButton(
+                              heroTag: 'btn2',
                               child: Icon(FontAwesomeIcons.plus),
                               backgroundColor: Color(0xFF1D1F31),
                               foregroundColor: Colors.white,
@@ -235,6 +233,7 @@ class _InputPageState extends State<InputPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             FloatingActionButton(
+                              heroTag: 'btn3',
                               child: Icon(FontAwesomeIcons.minus),
                               backgroundColor: Color(0xFF1D1F31),
                               foregroundColor: Colors.white,
@@ -244,9 +243,8 @@ class _InputPageState extends State<InputPage> {
                                 });
                               },
                             ),
-                            // SizedBox(width: 30,),
                             FloatingActionButton(
-                              elevation: 1,
+                              heroTag: 'btn4',
                               child: Icon(FontAwesomeIcons.plus),
                               backgroundColor: Color(0xFF1D1F31),
                               foregroundColor: Colors.white,
@@ -283,6 +281,9 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
             onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Result();
+              }));
             },
           )
         ],
